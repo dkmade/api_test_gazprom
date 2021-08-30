@@ -39,25 +39,7 @@ use Doctrine\ORM\PersistentCollection;
  *          "post"={
  *              "method"="POST",
  *              "path"="/api/books/",
- *              "openapi_context" = {
- *                   "requestBody" = {
- *                        "content" = {
- *                              "application/json" = {
- *                                  "schema" = {
- *                                       "type" = "object",
- *                                       "properties" = {
- *                                            "names" = {"type" = "string"}
- *                                        }
- *                                   },
- *                                  "examle" = {
 
- *                                            "names" = "eee"
-
- *                                   }
- *                               }
- *                         }
- *                   }
- *               }
  *          }
  *     },
  *     itemOperations={

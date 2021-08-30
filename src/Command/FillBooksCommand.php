@@ -107,6 +107,8 @@ class FillBooksCommand extends Command
                 }
                 $book->addAuthor($author);
                 $this->em->flush();
+                sleep(2);
+
             }
         }
 
