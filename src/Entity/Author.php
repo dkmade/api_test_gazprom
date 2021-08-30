@@ -12,6 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=AuthorRepository::class)
  * @ApiResource(
+ *     normalizationContext={"groups"={"author:read"}},
+ *     denormalizationContext={"groups"={"author:write"}},
+ *     routePrefix="api/",
  *     collectionOperations={"post"},
  *     itemOperations={"get"}
  * )
@@ -22,13 +25,13 @@ class Author
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"book:read"})
+     * @Groups({"book:read", "book:write", "author:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"book:read"})
+     * @Groups({"book:read", "author:read", "author:write", "book:write"})
      */
     private $name;
 

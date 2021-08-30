@@ -6,22 +6,21 @@ namespace App\Dto;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use App\Entity\Author;
+use App\Entity\BookName;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-final class BookOutput
+final class BookInput
 {
-    /**
-     * @Groups({"book:read"})
-     */
     public int $id;
     /**
-     * @Groups({"book:read"})
+     * @Groups({"book:write"})
+     * @var Collection<BookName>
      */
-    public string $name;
+    public $names;
     /**
-     * @Groups({"book:read"})
+     * @Groups({"book:write"})
      * @var Collection<Author>
      */
-    public $authors; //todo
+    public $authors;
 }

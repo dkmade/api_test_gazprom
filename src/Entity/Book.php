@@ -10,15 +10,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Dto\BookOutput;
+use App\Dto\BookInput;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
  * @ApiResource(
  *     normalizationContext={"groups"={"book:read"}},
+ *     denormalizationContext={"groups"={"book:write"}},
  *     collectionOperations={
  *          "get"={
+ *              "path"="{_locale}/api/books/",
  *              "method"="GET",
  *              "openapi_context" = {
  *                  "parameters" = {
@@ -26,14 +30,55 @@ use ApiPlatform\Core\Annotation\ApiFilter;
  *                          "name" = "_locale",
  *                          "in" = "path",
  *                          "description" = "Язык",
+ *                          "required" = true,
  *                          "schema" = {"type" = "string", "enum"={"ru", "en"}, "example"="ru"}
  *                      }
  *                  }
  *               }
+ *          },
+ *          "post"={
+ *              "method"="POST",
+ *              "path"="/api/books/",
+ *              "openapi_context" = {
+ *                   "requestBody" = {
+ *                        "content" = {
+ *                              "application/json" = {
+ *                                  "schema" = {
+ *                                       "type" = "object",
+ *                                       "properties" = {
+ *                                            "names" = {"type" = "string"}
+ *                                        }
+ *                                   },
+ *                                  "examle" = {
+
+ *                                            "names" = "eee"
+
+ *                                   }
+ *                               }
+ *                         }
+ *                   }
+ *               }
  *          }
  *     },
- *     itemOperations={"get"},
+ *     itemOperations={
+ *          "get"={
+ *              "path"="{_locale}/api/books/{id}",
+ *              "method"="GET",
+ *              "openapi_context" = {
+ *                  "parameters" = {
+ *                      {
+ *                          "name" = "_locale",
+ *                          "in" = "path",
+ *                          "description" = "Язык",
+ *                          "required" = true,
+ *                          "schema" = {"type" = "string", "enum"={"ru", "en"}, "example"="ru"}
+ *                      }
+ *                  }
+ *               }
+ *          },
+ *     },
  *     output=BookOutput::class,
+ *     input=BookInput::class,
  * )
  * @ApiFilter(SearchFilter::class, properties={"bookNames.name":"ipartial"})
  */
@@ -49,12 +94,12 @@ final class Book
     /**
      * @ORM\ManyToMany(targetEntity=Author::class, inversedBy="books", cascade={"persist"})
      */
-    private $authors;
+    private Collection $authors;
 
     /**
      * @ORM\OneToMany(targetEntity=BookName::class, mappedBy="book", orphanRemoval=true, cascade={"persist"})
      */
-    private $bookNames;
+    private Collection $bookNames;
 
     public function __construct()
     {

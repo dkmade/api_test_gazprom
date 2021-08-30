@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookNameRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BookNameRepository::class)
@@ -20,17 +21,20 @@ class BookName
     /**
      * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="bookNames")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $book;
 
     /**
      * @ORM\ManyToOne(targetEntity=Locale::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"book:write"})
      */
     private $locale;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"book:write"})
      */
     private $name;
 

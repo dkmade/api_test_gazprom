@@ -38,7 +38,6 @@ final class CurrentLocaleBookNameExtension implements QueryCollectionExtensionIn
         }
         $request = $this->requestStack->getCurrentRequest();
         $locale = $request->getLocale();
-//        $locale = 'ru';
 
         $em = $queryBuilder->getEntityManager();
         $locale = $em->getRepository(Locale::class)->findOneByLocale($locale);

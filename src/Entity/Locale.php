@@ -9,10 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LocaleRepository::class)
  * @ApiResource(
+ *     routePrefix="api/",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )

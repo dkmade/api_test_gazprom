@@ -12,29 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BookOutputDataTransformer implements DataTransformerInterface
 {
-//    private $em;
-//    private $request;
-//    public function __construct(EntityManagerInterface $em, Request $request)
-//    {
-//        $this->em = $em;
-//        $this->request = $request;
-//    }
-
     public function transform($object, string $to, array $context = [])
     {
         $output = new BookOutput();
-
-//        dump($object);
-
-        $request = Request::createFromGlobals();
-//        dump($request->getLocale());
-
-        $output->name = $object->getBookNames()[0]->getName() .
-
-            '  ----  ' . $object->getBookNames()[0]->getLocale()->getName();
+        $output->name = isset($object->getBookNames()[0]) ? $object->getBookNames()[0]->getName() : 'Нет перевода для этой локализации';
         $output->id = $object->getId();
         $output->authors = $object->getAuthors();
-//        dump($object);
         return $output;
     }
 
