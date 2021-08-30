@@ -13,7 +13,6 @@ use App\Dto\BookOutput;
 use App\Dto\BookInput;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
-use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
