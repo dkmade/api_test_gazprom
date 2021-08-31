@@ -12,7 +12,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture implements FixtureGroupInterface
 {
-    private $locales = [];
+     private $locales = [];
 
      public static function getGroups(): array
      {
